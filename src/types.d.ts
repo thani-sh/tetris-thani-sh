@@ -1,1 +1,0 @@
-declare const PIXI: any

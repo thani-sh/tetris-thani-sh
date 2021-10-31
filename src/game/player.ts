@@ -1,49 +1,51 @@
-type Keymap = { [key: string]: string }
+import { ShapeActionName } from "./shape_action";
 
-type Callback = (action: string) => void
+type Keymap = { [key: string]: ShapeActionName };
+
+type Callback = (action: ShapeActionName) => void;
 
 export interface Player {
-    color: number
-    listen: (fn: Callback) => void
-    destroy: () => void
+  color: number;
+  listen: (fn: Callback) => void;
+  destroy: () => void;
 }
 
 export const createKeyboardPlayer = (color: number, keymap: Keymap): Player => {
-    const callbacks: Callback[] = []
+  const callbacks: Callback[] = [];
 
-    const keyDownListener = (e: KeyboardEvent) => {
-        for (const key of Object.keys(keymap)) {
-            if (e.code === key) {
-                triggerCallbacks(keymap[key]);
-                break;
-            }
-        }
+  const keyDownListener = (e: KeyboardEvent) => {
+    for (const key of Object.keys(keymap)) {
+      if (e.code === key) {
+        triggerCallbacks(keymap[key]);
+        break;
+      }
     }
+  };
 
-    const triggerCallbacks = (action: string) => {
-        for (const callback of callbacks) {
-            callback(action)
-        }
+  const triggerCallbacks = (action: ShapeActionName) => {
+    for (const callback of callbacks) {
+      callback(action);
     }
+  };
 
-    const setupPlayer = () => {
-        document.addEventListener('keydown', keyDownListener);
-    }
+  const setupPlayer = () => {
+    document.addEventListener("keydown", keyDownListener);
+  };
 
-    const listen = (fn: Callback): void => {
-        callbacks.push(fn)
-    }
+  const listen = (fn: Callback): void => {
+    callbacks.push(fn);
+  };
 
-    const destroy = () => {
-        document.removeEventListener('keydown', keyDownListener);
-    }
+  const destroy = () => {
+    document.removeEventListener("keydown", keyDownListener);
+  };
 
-    // init !
-    setupPlayer()
+  // init !
+  setupPlayer();
 
-    return {
-        color,
-        listen,
-        destroy,
-    }
-}
+  return {
+    color,
+    listen,
+    destroy,
+  };
+};
