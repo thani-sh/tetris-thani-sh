@@ -43,7 +43,7 @@ export const createGameWorld = (options: GameWorldOptions): (() => void) => {
     options.renderer.insertShape(shape);
   };
 
-  const stopWorld = () => {
+  const endTheGame = () => {
     alert("GAME OVER!");
     destroy();
   };
@@ -62,7 +62,7 @@ export const createGameWorld = (options: GameWorldOptions): (() => void) => {
         addShape(id);
         return;
       } else if (result === WORLD_ACTION.END_THE_GAME) {
-        stopWorld();
+        endTheGame();
       }
     }
     SHAPE_ACTIONS[action](shape);

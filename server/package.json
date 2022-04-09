@@ -1,0 +1,12 @@
+{
+  "name": "@thani-sh/play-tetris-server",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ws": "^8.5.0"
+  }
+}

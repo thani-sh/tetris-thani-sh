@@ -2,7 +2,7 @@ export type CancelTicker = () => void;
 
 export type Ticker = (fn: any) => CancelTicker;
 
-export const createTicker = (t: number): Ticker => {
+export const createBasicTicker = (t: number): Ticker => {
   return (fn) => {
     let enabled = true;
     const handler = () => {

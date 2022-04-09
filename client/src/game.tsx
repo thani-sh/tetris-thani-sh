@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createKeyboardPlayer } from "./game/player";
 import { createCanvasRenderer } from "./game/renderer";
 import { ShapeActionName } from "./game/shape_action";
-import { createTicker } from "./game/ticker";
+import { createBasicTicker } from "./game/ticker";
 import { createGameWorld } from "./game/world";
 import { createWorldRules } from "./game/world_rule";
 
@@ -31,7 +31,7 @@ export const Game = () => {
     const player2 = createKeyboardPlayer(0xf6b26b, KEYMAP_ULDR);
     const players = [player1, player2];
     const renderer = createCanvasRenderer(containerRef.current);
-    const ticker = createTicker(500);
+    const ticker = createBasicTicker(500);
     const ruleset = createWorldRules();
     createGameWorld({ players, renderer, ticker, ruleset });
   }, [containerRef]);
