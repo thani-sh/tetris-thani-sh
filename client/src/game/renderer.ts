@@ -13,15 +13,21 @@ export interface Renderer {
   insertShape(shape: Shape): void;
   updateShape(shape: Shape): void;
   removeShape(shape: Shape): void;
+  updatePoints(points: number): void;
 }
 
 type ShapeView = PIXI.Graphics;
 
 export const createCanvasRenderer = (target: HTMLElement): Renderer => {
+  const container = new PIXI.Container();
   const shapes = new Map<Shape, ShapeView>();
   const canvas = new PIXI.Application({ ...OPTIONS });
   const border = new PIXI.Graphics();
-  const container = new PIXI.Container();
+  const points = new PIXI.Text("0");
+
+  points.position.x = -BLOCK_W;
+  points.position.y = -BLOCK_W;
+  container.addChild(points);
 
   const redrawShapeView = (shape: Shape, view: ShapeView): void => {
     view.clear();
@@ -87,6 +93,10 @@ export const createCanvasRenderer = (target: HTMLElement): Renderer => {
     container.removeChild(view);
   };
 
+  const updatePoints = (value: number) => {
+    points.text = `${value}`;
+  };
+
   // init !
   setupCanvas();
 
@@ -94,5 +104,6 @@ export const createCanvasRenderer = (target: HTMLElement): Renderer => {
     insertShape,
     updateShape,
     removeShape,
+    updatePoints,
   };
 };
