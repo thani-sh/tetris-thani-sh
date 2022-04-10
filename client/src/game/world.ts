@@ -84,8 +84,7 @@ export const createGameWorld = (options: GameWorldOptions): (() => void) => {
       if (counter < WORLD_W) {
         continue;
       }
-      clearedCount++;
-      options.renderer.updatePoints(clearedCount);
+      increasePoints();
       for (let shapeId in shapes) {
         const { shape } = shapes[shapeId];
         if (deletedShapes.indexOf(shape.id) >= 0) {
@@ -103,6 +102,11 @@ export const createGameWorld = (options: GameWorldOptions): (() => void) => {
         }
       }
     }
+  };
+
+  const increasePoints = () => {
+    clearedCount++;
+    options.renderer.updatePoints(clearedCount);
   };
 
   const addShape = (pidx: number) => {
